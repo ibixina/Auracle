@@ -26,7 +26,7 @@ const genAI = new GoogleGenerativeAI(apiKey);
 const model = genAI.getGenerativeModel({
   model: "gemini-1.5-flash-8b",
   systemInstruction:
-    "be concise and accurate. do not hallucinate. verify everything you say. you will be given texts and your job is to summarize them in a digestible manner. depending on the subject, give proper examples and analogies to make it easier to understand. only say what you are fully confident about. do not exlcude any vital information. explain any unfamiliar ideas or terms. explain not just what but also the how. the answer should be short and concise.",
+    "You will return the response in a <div> tag in html.You will be given a text. Your job is to create a short and concise summary of the text. After the summary, you will provide a bulleted list of the most important points of the text. After that, you will explain the text in a more digestible and easier to understand manner.",
 });
 
 const generationConfig = {
@@ -45,10 +45,7 @@ const chatSession = model.startChat({
 async function run(message) {
   const result = await chatSession.sendMessage(message);
   console.log(result.response.text());
-  answerContainer.innerText = result.response
-    .text()
-    .replaceAll("`", "")
-    .replace("html", "");
+  answerContainer.innerHTML = result.response.text();
   answerContainer.style.display = "block";
 }
 
@@ -57,7 +54,8 @@ answerContainer.id = "answerSumm";
 answerContainer.style.display = "none";
 answerContainer.style.position = "fixed";
 answerContainer.style.bottom = "0";
-answerContainer.style.right = "0";
+answerContainer.style.left = "0";
+answerContainer.style.width = "25%";
 answerContainer.style.backgroundColor = "#000";
 answerContainer.style.opacity = "0.8";
 answerContainer.style.color = "#fff";
