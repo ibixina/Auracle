@@ -5,7 +5,7 @@ document.addEventListener("mouseup", () => {
   }
 });
 
-const API_KEY = localStorage.getItem("API_KEY_GEMINI");
+const API_KEY = "";
 // Test
 
 let selectedText = "";
@@ -26,7 +26,7 @@ const genAI = new GoogleGenerativeAI(apiKey);
 const model = genAI.getGenerativeModel({
   model: "gemini-1.5-flash-8b",
   systemInstruction:
-    "You will return the response in a <div> tag in html.You will be given a text. Your job is to create a short and concise summary of the text. After the summary, you will provide a bulleted list of the most important points of the text. After that, you will explain the text in a more digestible and easier to understand manner.",
+    "You will return the response in a <div> tag in html.You will be given a text. Your job is to create a short and concise summary of the text. After the summary, you will provide a bulleted list of the most important points of the text. After that, you will explain the text in a more digestible and easier to understand manner. If the text is in a different language, then translate it.",
 });
 
 const generationConfig = {
@@ -68,7 +68,6 @@ document.body.appendChild(answerContainer);
 
 document.addEventListener("keydown", (e) => {
   if (e.key === "S") {
-    console.log(API_KEY);
     run(selectedText);
   }
   if (e.key === "Q") {
