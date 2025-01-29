@@ -8,10 +8,10 @@ document.addEventListener("mouseup", () => {
 const API_KEY = localStorage.getItem("API_KEY_GEMINI");
 // Test
 
+let selectedText = "";
 function execute(text) {
   console.log("Selected text:", text);
-  // Your custom logic here
-  run(text);
+  selectedText = text;
 }
 
 const {
@@ -66,8 +66,12 @@ answerContainer.style.maxHeight = "33%";
 answerContainer.style.overflow = "scroll";
 document.body.appendChild(answerContainer);
 
-document.addEventListener("click", (e) => {
-  if (e.target.id === "answerSumm") {
+document.addEventListener("keydown", (e) => {
+  if (e.key === "S") {
+    console.log(API_KEY);
+    run(selectedText);
+  }
+  if (e.key === "Q") {
     answerContainer.style.display = "none";
   }
 });
